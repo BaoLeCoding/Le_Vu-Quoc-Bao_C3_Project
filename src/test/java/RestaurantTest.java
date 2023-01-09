@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -66,6 +68,25 @@ class RestaurantTest {
                 () -> restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    //<<<<<<<<<<<<<<<<<<<<<<<Display Restaurant>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    @Test
+    public void display_restaurant_details_should_print_expected_contents(){
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        restaurant.displayDetails();
+        String expectedOutput  = "Restaurant:Amelie's cafe\n" +
+                "Location:Chennai\n" +
+                "Opening time:08:00\n" +
+                "Closing time:16:00\n" +
+                "Menu:\n" +
+                "[Sweet corn soup:119\n" +
+                ", Vegetable lasagne:269\n]" +
+                "\r\n";
+        String actualOutput=new String (outContent.toByteArray());
+        assertTrue(expectedOutput.equals(actualOutput));
+    }
+    //<<<<<<<<<<<<<<<<<<<<<<<Display Restaurant>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     //<<<<<<<<<<<<<<<<<<<<<ORDER TOTAL>>>>>>>>>>>>>>>>>>>>>>>>
     @Test
