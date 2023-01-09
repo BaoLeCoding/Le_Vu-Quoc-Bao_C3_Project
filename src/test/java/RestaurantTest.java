@@ -67,4 +67,21 @@ class RestaurantTest {
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+    //<<<<<<<<<<<<<<<<<<<<<ORDER TOTAL>>>>>>>>>>>>>>>>>>>>>>>>
+    @Test
+    public void get_order_total_for_valid_menu_items_should_return_expected_number() throws itemNotFoundException {
+        List<String> order_items = new ArrayList<String>();
+        order_items.add("Sweet corn soup");
+        order_items.add("Vegetable lasagne");
+        assertTrue(restaurant.orderTotal(order_items) == 388);
+    }
+
+    @Test
+    public void get_order_total_for_item_not_in_menu_should_throw_exception() throws itemNotFoundException {
+        List<String> order_items = new ArrayList<String>();
+        order_items.add("Unexpected item");
+        assertThrows(itemNotFoundException.class,
+                () -> restaurant.orderTotal(order_items));
+    }
+
 }
